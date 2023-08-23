@@ -8,13 +8,10 @@ const Tasks = () => {
   const { authState, setAuthState } = useContext(AuthContext);
   const router = useRouter();
   function handleCreateTask() {
-    // Define the new task object
     const newTask = {
       text: "Nova tarefa",
-      // Add any other properties for the new task
     };
 
-    // Make the fetch request to create a new task
     fetch("http://localhost:5000/api/tasks", {
       method: "POST",
       headers: {
@@ -25,54 +22,49 @@ const Tasks = () => {
     })
       .then((response) => {
         if (response.ok) {
-          fetchTasks(); // Fetch updated task list
+          fetchTasks(); 
         } else {
           
           console.error("Error creating task");
         }
       })
       .catch((error) => {
-        // Handle network or other errors
+
         console.error("Network error:", error);
       });
   }
 
   function handleDeleteTask(taskId) {
-    // Make the fetch request
+
     fetch(`http://localhost:5000/api/tasks/${taskId}`, {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${authState.token}`, // Include your token here
+        Authorization: `Bearer ${authState.token}`, 
       },
     })
       .then((response) => {
         if (response.ok) {
           fetchTasks();
         } else {
-          // Handle error
           console.error("Error deleting task");
         }
       })
       .catch((error) => {
-        // Handle network or other errors
         console.error("Network error:", error);
       });
   }
 
   function handleTaskUpdate(taskId, updatedText, completedStatus) {
-    // Define the updated task object
     const updatedTask = {
       text: updatedText,
       completed: completedStatus
-      // Add any other properties you want to update
     };
 
-    // Make the fetch request
     fetch(`http://localhost:5000/api/tasks/${taskId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${authState.token}`, // Include your token here
+        Authorization: `Bearer ${authState.token}`, 
       },
       body: JSON.stringify(updatedTask),
     })
@@ -88,7 +80,6 @@ const Tasks = () => {
         }
       })
       .catch((error) => {
-        // Handle network or other errors
         console.error("Network error:", error);
       });
   }
@@ -120,6 +111,7 @@ const Tasks = () => {
 
   return (
     <div className="flex flex-col items-center justify-center gap-5 w-80 relative">
+    <div className="flex flex-col items-center justify-center gap-5 w-80 relative">
       <div className="bg-lila w-full shadow-md py-2 px-6 text-center text-white font-semibold">
         Tarefas
       </div>
@@ -140,6 +132,12 @@ const Tasks = () => {
       >
         New Task
       </button>
+    </div>
+    <button onClick={() => {
+      setAuthState({token: null})
+      localStorage.setItem('token', null)
+      router.push('/')
+    }} >Logout</button>
     </div>
   );
 };

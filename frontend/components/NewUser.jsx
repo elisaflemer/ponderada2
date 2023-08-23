@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 
 const NewUser = () => {
+  const { authState, setAuthState } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
@@ -19,8 +21,8 @@ const NewUser = () => {
     });
 
     if (response.ok) {
-      // User created successfully, you might want to handle this in a different way
-      router.push("/"); // Redirect to login page
+      setAuthState({token: null})
+      router.push("/"); 
     } else {
     }
   };
