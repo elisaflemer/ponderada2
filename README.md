@@ -49,6 +49,46 @@ users: Armazena informações dos usuários, incluindo um email, senha e timesta
 
 tasks: Armazena informações sobre as tarefas, incluindo título, estado de conclusão e referência ao usuário através do campo user_id. Também possui timestamps de criação e atualização.
 
+## Estrutura de pastas
+
+```
+├───backend
+│   ├───config
+│   ├───controllers
+│   ├───db
+│   ├───middlewares
+│   ├───models
+│   ├───routes
+│   └───services
+└───frontend
+    ├───.next
+    ├───app
+    │   ├───signUp
+    │   └───tasks
+    ├───components
+    ├───context
+    └───public
+```
+
+### Backend (MVC)
+
+- **config**: Arquivos de configuração da aplicação, como da conexão com o banco de dados
+- **controllers**: Controladores que preparam o input do usuário para os serviços
+- **middlewares**: Middlewares da aplicação (autenticação, validação, erros, etc.).
+- **models**: Definições dos modelos de dados.
+- **routes**: Definições das rotas da aplicação.
+- **services**: Regras de negócio com manipulação direta do banco de dados
+
+Na pasta raiz, existem também os arquivos app.js e index.js. O index.js é o ponto de entrada, enquanto o app.js apenas cria o objeto de app no express e define as rotas. O index.js também inicializa o banco de dados através da importação dos arquivos de configuração.
+
+### Frontend
+
+- **.next**: Artefatos de construção do Next.js.
+- **app**: Módulos ou seções do frontend (signUp, tasks, etc.).
+- **components**: Componentes reutilizáveis.
+- **context**: Gerenciamento de estado global da aplicação, principalmente de autenticação
+- **public**: Ativos estáticos públicos (imagens, ícones, CSS não processados, etc.).
+
 ## Executando a aplicação
 Para executar a aplicação, siga os seguintes passos:
 
